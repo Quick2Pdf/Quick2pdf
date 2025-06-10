@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Image to PDF Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .drop-zone {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .settings {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ultimate Image to PDF Converter</h1>
+    
+    <div class="button-group">
+        <button id="addImagesBtn" class="button">Add Images</button>
+        <button id="takePhotoBtn" class="button">Take Photo</button>
+        <button id="convertBtn" class="button">Convert to PDF</button>
+        <button id="clearAllBtn" class="button">Clear All</button>
+    </div>
+    
+    <div class="drop-zone" id="dropZone">
+        <p>Drop your images here or</p>
+        <button id="selectFilesBtn" class="button">Select Files</button>
+        <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+    </div>
+    
+    <div class="settings">
+        <h3>PDF Settings</h3>
+        <div>
+            <label>Page Size:</label>
+            <select id="pageSize">
+                <option value="a4">A4 (210 × 297 mm)</option>
+                <option value="letter">Letter (8.5 × 11 in)</option>
+            </select>
+        </div>
+        <div>
+            <label>PDF Filename:</label>
+            <input type="text" id="pdfFilename" value="converted">
+        </div>
+        <div>
+            <label>Orientation:</label>
+            <select id="pageOrientation">
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
+            </select>
+        </div>
+        <div>
+            <label>Margin (mm):</label>
+            <input type="range" id="pageMargin" min="0" max="30" value="10">
+            <span id="marginValue">10 mm</span>
+        </div>
+    </div>
+
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all buttons
+            const addImagesBtn = document.getElementById('addImagesBtn');
+            const takePhotoBtn = document.getElementById('takePhotoBtn');
+            const convertBtn = document.getElementById('convertBtn');
+            const clearAllBtn = document.getElementById('clearAllBtn');
+            const selectFilesBtn = document.getElementById('selectFilesBtn');
+            const fileInput = document.getElementById('fileInput');
+            
+            // Add event listeners
+            addImagesBtn.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            selectFilesBtn.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    alert(`Selected ${e.target.files.length} file(s)`);
+                    // Here you would handle the file selection
+                }
+            });
+            
+            takePhotoBtn.addEventListener('click', function() {
+                alert("Take Photo button clicked");
+                // Camera access would go here
+            });
+            
+            convertBtn.addEventListener('click', function() {
+                alert("Convert to PDF button clicked");
+                // PDF conversion would go here
+            });
+            
+            clearAllBtn.addEventListener('click', function() {
+                alert("Clear All button clicked");
+                // Clear functionality would go here
+            });
+            
+            // Update margin value display
+            const marginRange = document.getElementById('pageMargin');
+            const marginValue = document.getElementById('marginValue');
+            marginRange.addEventListener('input', function() {
+                marginValue.textContent = `${this.value} mm`;
+            });
+            
+            // Drag and drop functionality
+            const dropZone = document.getElementById('dropZone');
+            
+            dropZone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                dropZone.style.borderColor = '#4CAF50';
+            });
+            
+            dropZone.addEventListener('dragleave', function() {
+                dropZone.style.borderColor = '#ccc';
+            });
+            
+            dropZone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropZone.style.borderColor = '#ccc';
+                
+                if (e.dataTransfer.files.length > 0) {
+                    alert(`Dropped ${e.dataTransfer.files.length} file(s)`);
+                    // Here you would handle the dropped files
+                }
+            });
+        });
+    </script>
+</body>
+  </html>
